@@ -6,24 +6,26 @@ const Order = require("./models/order");
 const jwt = require("jsonwebtoken");
 const User = require("./models/user");
 const bcrypt = require("bcryptjs");
+const dns = require("dns");
 
 const app = express();
 const Port = 8000;
-
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
 mongoose
   .connect(
-    "mongodb+srv://asifshah1129:udaipur%40123A@ecomcluster.3v95rhc.mongodb.net/amazon"
+    "mongodb+srv://asifshah1129:udaipur%40123A@ecomcluster.3v95rhc.mongodb.net/amazon",
   )
   .then(() => {
     console.log("Db connected");
   })
-  .catch(() => {
-    console.log("Error in connection");
+  .catch((error) => {
+    console.log("Error in connection", error);
   });
+
 app.listen(Port, () => {
   console.log("server started");
 });
