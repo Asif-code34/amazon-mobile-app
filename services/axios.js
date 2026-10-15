@@ -1,8 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
-export const API_URL = "http://172.20.10.2:8000";
-
+// export const API_URL = "http://172.20.10.2:8000";
+export const API_URL = "https://amazon-mobile-app-smy6.onrender.com";
 const api = axios.create({
   baseURL: API_URL,
   timeout: 15000,
