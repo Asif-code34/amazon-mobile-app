@@ -1,300 +1,85 @@
-// import { AntDesign, MaterialIcons } from "@expo/vector-icons";
-// import AsyncStorage from "@react-native-async-storage/async-storage";
-// import { useNavigation } from "@react-navigation/native";
-// import axios from "axios";
-// import { useEffect, useState } from "react";
-// import {
-//   Alert,
-//   Image,
-//   KeyboardAvoidingView,
-//   Pressable,
-//   Text,
-//   TextInput,
-//   View,
-// } from "react-native";
-// import { SafeAreaView } from "react-native-safe-area-context";
-
-// const LoginScreen = () => {
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-//   const navigation = useNavigation();
-//   const [checkingLogin, setCheckingLogin] = useState(true);
-
-//   useEffect(() => {
-//     const checkLoginStatus = async () => {
-//       try {
-//         const token = await AsyncStorage.getItem("token");
-//         if (token) {
-//           navigation.replace("Main");
-//         }
-//       } catch (error) {
-//         console.log(error);
-//       } finally {
-//         setCheckingLogin(false); // ✅ Mark check as done
-//       }
-//     };
-//     checkLoginStatus();
-//   }, []);
-
-//   if (checkingLogin) {
-//     return null; // 👈 Or show loading spinner
-//   }
-
-//   const handleLogin = async () => {
-//     try {
-//       const response = await axios.post("http://172.20.10.3:8000/login", {
-//         email: email.trim().toLowerCase(),
-//         password: password,
-//       });
-
-//       const { token, user } = response.data;
-//       await AsyncStorage.setItem("token", token);
-
-//       Alert.alert("Success", "Login successful");
-//       console.log("Logged in user:", user);
-
-//       // Navigate to home screen or dashboard
-//       navigation.replace("Main");
-//     } catch (err) {
-//       console.log("LOGIN ERROR ===>", err.response?.data || err.message);
-//       Alert.alert("Error", err.response?.data?.message || "Login failed");
-//     }
-//   };
-
-//   return (
-//     <SafeAreaView
-//       style={{
-//         flex: 1,
-//         backgroundColor: "white",
-//         alignItems: "center",
-//         marginTop: 50,
-//       }}
-//     >
-//       <View>
-//         <Image
-//           style={{ width: 150, height: 100 }}
-//           source={{
-//             uri: "https://assets.stickpng.com/thumbs/6160562276000b00045a7d97.png",
-//           }}
-//         />
-//       </View>
-//       <KeyboardAvoidingView>
-//         <View style={{ alignItems: "center" }}>
-//           <Text
-//             style={{
-//               fontSize: 17,
-//               fontWeight: "bold",
-//               marginTop: 12,
-//               color: "#041E42",
-//             }}
-//           >
-//             {" "}
-//             Login In to your Account
-//           </Text>
-//         </View>
-
-//         <View style={{ marginTop: 70 }}>
-//           <View
-//             style={{
-//               flexDirection: "row",
-//               alignItems: "center",
-//               gap: 5,
-//               backgroundColor: "#D0D0D0",
-//               paddingVertical: 5,
-//               borderRadius: 5,
-//               marginTop: 30,
-//             }}
-//           >
-//             <MaterialIcons
-//               style={{ marginLeft: 8 }}
-//               name="email"
-//               size={24}
-//               color="gray"
-//             />
-
-//             <TextInput
-//               value={email}
-//               onChangeText={(text) => setEmail(text)}
-//               style={{
-//                 color: "gray",
-//                 marginVertical: 10,
-//                 width: 300,
-//                 fontSize: email ? 16 : 16,
-//               }}
-//               autoCapitalize="none"
-//               keyboardType="email-address"
-//               placeholder="enter your Email"
-//             />
-//           </View>
-//         </View>
-
-//         <View style={{ marginTop: 30 }}>
-//           <View
-//             style={{
-//               flexDirection: "row",
-//               borderRadius: 5,
-//               paddingVertical: 5,
-//               gap: 5,
-//               backgroundColor: "#D0D0D0",
-//               alignItems: "center",
-//             }}
-//           >
-//             <AntDesign
-//               name="lock1"
-//               size={24}
-//               color="gray"
-//               style={{ marginLeft: 8 }}
-//             />
-//             <TextInput
-//               value={password}
-//               onChangeText={(text) => setPassword(text)}
-//               style={{
-//                 color: "gray",
-//                 width: 300,
-//                 marginVertical: 10,
-//                 fontSize: password ? 16 : 16,
-//               }}
-//               placeholder="enter your password"
-//               secureTextEntry={true}
-//             />
-//           </View>
-//         </View>
-
-//         <View
-//           style={{
-//             marginTop: 12,
-//             flexDirection: "row",
-//             alignItems: "center",
-//             justifyContent: "space-between",
-//           }}
-//         >
-//           <Text>Keep me logged in</Text>
-
-//           <Text style={{ color: "#007FFF", fontWeight: "500" }}>
-//             Forgot Password
-//           </Text>
-//         </View>
-//         <View style={{ marginTop: 80 }}>
-//           <Pressable
-//             onPress={handleLogin}
-//             style={{
-//               backgroundColor: "#FEBE10",
-//               borderRadius: 6,
-//               width: 200,
-//               marginLeft: "auto",
-//               marginRight: "auto",
-//               padding: 15,
-//             }}
-//           >
-//             <Text
-//               style={{
-//                 textAlign: "center",
-//                 color: "white",
-//                 fontSize: 16,
-//                 fontWeight: "bold",
-//               }}
-//             >
-//               Login
-//             </Text>
-//           </Pressable>
-//           <Pressable
-//             onPress={() => navigation.navigate("Register")}
-//             style={{ marginTop: 15 }}
-//           >
-//             <Text style={{ textAlign: "center", color: "gray", fontSize: 16 }}>
-//               Dont have an account? Sign Up
-//             </Text>
-//           </Pressable>
-//         </View>
-//       </KeyboardAvoidingView>
-//     </SafeAreaView>
-//   );
-// };
-
-// export default LoginScreen;
-
 import { MaterialIcons } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
+  ActivityIndicator,
   Alert,
   Image,
   KeyboardAvoidingView,
   Platform,
   Pressable,
   ScrollView,
+  StatusBar,
   Text,
   TextInput,
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import api from "../services/axios";
+import { useAuth } from "../UserContext";
+
 const LoginScreen = () => {
+  const navigation = useNavigation();
+  const { signIn } = useAuth();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigation = useNavigation();
-  const [checkingLogin, setCheckingLogin] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  // UI-only states
   const [emailFocused, setEmailFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  useEffect(() => {
-    const checkLoginStatus = async () => {
-      try {
-        const token = await AsyncStorage.getItem("token");
-        if (token) {
-          navigation.replace("Main");
-        }
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setCheckingLogin(false); // ✅ Mark check as done
-      }
-    };
-    checkLoginStatus();
-  }, []);
-
-  if (checkingLogin) {
-    return null; // 👈 Or show loading spinner
-  }
-
   const handleLogin = async () => {
+    if (!email.trim() || !password) {
+      return Alert.alert("Missing fields", "Please enter email and password.");
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
+      return Alert.alert(
+        "Invalid email",
+        "Please enter a valid email address.",
+      );
+    }
+
     try {
-      const response = await axios.post("http://172.20.10.3:8000/login", {
+      setLoading(true);
+      const response = await api.post("/login", {
         email: email.trim().toLowerCase(),
-        password: password,
+        password,
       });
 
       const { token, user } = response.data;
-      await AsyncStorage.setItem("token", token);
 
-      Alert.alert("Success", "Login successful");
-      console.log("Logged in user:", user);
-
-      // Navigate to home screen or dashboard
-      navigation.replace("Main");
+      // Save token + userId → StackNavigator auto-swaps to Main
+      await signIn(token, user.id);
     } catch (err) {
-      console.log("LOGIN ERROR ===>", err.response?.data || err.message);
-      Alert.alert("Error", err.response?.data?.message || "Login failed");
+      Alert.alert(
+        "Login Failed",
+        err.message || "Something went wrong. Try again.",
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={styles.safeArea} edges={["top", "bottom"]}>
+      <StatusBar barStyle="dark-content" backgroundColor="#F7F8FA" />
+
       <KeyboardAvoidingView
         style={styles.keyboardContainer}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
       >
         <ScrollView
           contentContainerStyle={styles.scrollContent}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
-          {/* Logo */}
+          {/* ─── Logo ─── */}
           <View style={styles.logoContainer}>
             <View style={styles.logoCard}>
               <Image
@@ -307,20 +92,19 @@ const LoginScreen = () => {
             </View>
           </View>
 
-          {/* Header */}
+          {/* ─── Header ─── */}
           <View style={styles.header}>
             <Text style={styles.title}>Welcome Back</Text>
             <Text style={styles.subtitle}>
-              Login to your account to continue
+              Sign in to continue shopping with us
             </Text>
           </View>
 
-          {/* Form */}
+          {/* ─── Form ─── */}
           <View style={styles.formContainer}>
             {/* Email */}
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Email Address</Text>
-
               <View
                 style={[
                   styles.inputContainer,
@@ -330,29 +114,35 @@ const LoginScreen = () => {
                 <MaterialIcons
                   name="email"
                   size={21}
-                  color={emailFocused ? "#007FFF" : "#6B7280"}
+                  color={emailFocused ? "#008E97" : "#9CA3AF"}
                   style={styles.inputIcon}
                 />
-
                 <TextInput
                   value={email}
-                  onChangeText={(text) => setEmail(text)}
+                  onChangeText={setEmail}
                   style={styles.input}
                   autoCapitalize="none"
                   autoCorrect={false}
+                  autoComplete="email"
                   keyboardType="email-address"
-                  placeholder="Enter your email"
+                  placeholder="you@example.com"
                   placeholderTextColor="#9CA3AF"
                   onFocus={() => setEmailFocused(true)}
                   onBlur={() => setEmailFocused(false)}
                   returnKeyType="next"
+                  editable={!loading}
                 />
               </View>
             </View>
 
             {/* Password */}
             <View style={styles.inputGroup}>
-              <Text style={styles.label}>Password</Text>
+              <View style={styles.labelRow}>
+                <Text style={styles.label}>Password</Text>
+                <Pressable hitSlop={8}>
+                  <Text style={styles.forgotInline}>Forgot?</Text>
+                </Pressable>
+              </View>
 
               <View
                 style={[
@@ -360,17 +150,15 @@ const LoginScreen = () => {
                   passwordFocused && styles.inputContainerFocused,
                 ]}
               >
-                {/* Password lock icon */}
                 <MaterialIcons
                   name="lock-outline"
                   size={21}
-                  color={passwordFocused ? "#007FFF" : "#6B7280"}
+                  color={passwordFocused ? "#008E97" : "#9CA3AF"}
                   style={styles.inputIcon}
                 />
-
                 <TextInput
                   value={password}
-                  onChangeText={(text) => setPassword(text)}
+                  onChangeText={setPassword}
                   style={styles.input}
                   placeholder="Enter your password"
                   placeholderTextColor="#9CA3AF"
@@ -380,9 +168,9 @@ const LoginScreen = () => {
                   onFocus={() => setPasswordFocused(true)}
                   onBlur={() => setPasswordFocused(false)}
                   returnKeyType="done"
+                  onSubmitEditing={handleLogin}
+                  editable={!loading}
                 />
-
-                {/* Show / Hide password */}
                 <Pressable
                   onPress={() => setShowPassword(!showPassword)}
                   style={styles.eyeButton}
@@ -397,28 +185,27 @@ const LoginScreen = () => {
               </View>
             </View>
 
-            {/* Options */}
-            <View style={styles.optionsRow}>
-              <Pressable style={styles.keepLoggedIn}>
-                <View style={styles.checkbox} />
-                <Text style={styles.keepLoggedText}>Keep me logged in</Text>
-              </Pressable>
-
-              <Pressable>
-                <Text style={styles.forgotPassword}>Forgot Password?</Text>
-              </Pressable>
-            </View>
-
             {/* Login Button */}
             <Pressable
               onPress={handleLogin}
+              disabled={loading}
               style={({ pressed }) => [
                 styles.loginButton,
-                pressed && styles.loginButtonPressed,
+                (pressed || loading) && styles.loginButtonPressed,
               ]}
             >
-              <Text style={styles.loginButtonText}>Login</Text>
-              <MaterialIcons name="arrow-forward" size={21} color="#FFFFFF" />
+              {loading ? (
+                <ActivityIndicator color="#FFFFFF" size="small" />
+              ) : (
+                <>
+                  <Text style={styles.loginButtonText}>Sign In</Text>
+                  <MaterialIcons
+                    name="arrow-forward"
+                    size={21}
+                    color="#FFFFFF"
+                  />
+                </>
+              )}
             </Pressable>
 
             {/* Divider */}
@@ -431,10 +218,10 @@ const LoginScreen = () => {
             {/* Register */}
             <View style={styles.registerContainer}>
               <Text style={styles.registerText}>Don't have an account?</Text>
-
               <Pressable
                 onPress={() => navigation.navigate("Register")}
                 hitSlop={8}
+                disabled={loading}
               >
                 <Text style={styles.registerLink}> Sign Up</Text>
               </Pressable>
@@ -443,7 +230,9 @@ const LoginScreen = () => {
 
           {/* Footer */}
           <Text style={styles.footerText}>
-            By continuing, you agree to our Terms & Privacy Policy
+            By continuing, you agree to our{" "}
+            <Text style={styles.footerLink}>Terms</Text> &{" "}
+            <Text style={styles.footerLink}>Privacy Policy</Text>
           </Text>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -515,12 +304,28 @@ const styles = {
     marginBottom: 20,
   },
 
+  labelRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 8,
+    marginLeft: 2,
+    marginRight: 2,
+  },
+
   label: {
     fontSize: 14,
     fontWeight: "600",
     color: "#374151",
     marginBottom: 8,
     marginLeft: 2,
+  },
+
+  forgotInline: {
+    fontSize: 13,
+    fontWeight: "600",
+    color: "#008E97",
+    marginBottom: 8,
   },
 
   inputContainer: {
@@ -534,19 +339,17 @@ const styles = {
     borderRadius: 12,
     paddingHorizontal: 14,
     shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.04,
     shadowRadius: 3,
     elevation: 1,
   },
 
   inputContainerFocused: {
-    borderColor: "#007FFF",
-    shadowOpacity: 0.08,
-    shadowRadius: 5,
+    borderColor: "#008E97",
+    shadowColor: "#008E97",
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
     elevation: 2,
   },
 
@@ -570,40 +373,6 @@ const styles = {
     marginRight: -5,
   },
 
-  optionsRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginTop: 2,
-    marginBottom: 28,
-  },
-
-  keepLoggedIn: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-
-  checkbox: {
-    width: 18,
-    height: 18,
-    borderRadius: 5,
-    borderWidth: 1.5,
-    borderColor: "#D1D5DB",
-    backgroundColor: "#FFFFFF",
-    marginRight: 8,
-  },
-
-  keepLoggedText: {
-    fontSize: 13,
-    color: "#6B7280",
-  },
-
-  forgotPassword: {
-    fontSize: 13,
-    fontWeight: "600",
-    color: "#007FFF",
-  },
-
   loginButton: {
     height: 55,
     borderRadius: 12,
@@ -612,18 +381,16 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     gap: 8,
+    marginTop: 8,
     shadowColor: "#FEBE10",
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    elevation: 4,
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.25,
+    shadowRadius: 10,
+    elevation: 5,
   },
 
   loginButtonPressed: {
-    opacity: 0.8,
+    opacity: 0.85,
     transform: [{ scale: 0.98 }],
   },
 
@@ -631,6 +398,7 @@ const styles = {
     color: "#FFFFFF",
     fontSize: 16,
     fontWeight: "700",
+    letterSpacing: 0.3,
   },
 
   dividerContainer: {
@@ -666,7 +434,7 @@ const styles = {
   registerLink: {
     fontSize: 14,
     fontWeight: "700",
-    color: "#007FFF",
+    color: "#008E97",
   },
 
   footerText: {
@@ -676,6 +444,11 @@ const styles = {
     fontSize: 11,
     lineHeight: 17,
     color: "#9CA3AF",
+  },
+
+  footerLink: {
+    color: "#008E97",
+    fontWeight: "600",
   },
 };
 

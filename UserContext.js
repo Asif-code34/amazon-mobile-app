@@ -1,56 +1,170 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
-import { jwtDecode } from "jwt-decode";
-import { createContext, useEffect, useState } from "react";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
+// import { createContext, useContext, useEffect, useState } from "react";
+// import api from "./services/axios";
 
-export const AppContext = createContext();
+// const AppContext = createContext(null);
+
+// export const AppContextProvider = ({ children }) => {
+//   const [userId, setUserId] = useState(null);
+//   const [token, setToken] = useState(null);
+//   const [authLoading, setAuthLoading] = useState(true);
+//   const [addresses, setAddresses] = useState([]);
+
+//   // Load saved auth on mount
+//   useEffect(() => {
+//     (async () => {
+//       try {
+//         const [savedToken, savedUserId] = await Promise.all([
+//           AsyncStorage.getItem("token"),
+//           AsyncStorage.getItem("userId"),
+//         ]);
+//         if (savedToken && savedUserId) {
+//           setToken(savedToken);
+//           setUserId(savedUserId);
+//         }
+//       } catch (e) {
+//         console.log("Auth restore error:", e);
+//       } finally {
+//         setAuthLoading(false);
+//       }
+//     })();
+//   }, []);
+
+//   const signIn = async (newToken, newUserId) => {
+//     await AsyncStorage.setItem("token", newToken);
+//     await AsyncStorage.setItem("userId", newUserId);
+//     setToken(newToken);
+//     setUserId(newUserId);
+//   };
+
+//   const signOut = async () => {
+//     await AsyncStorage.removeItem("token");
+//     await AsyncStorage.removeItem("userId");
+//     setToken(null);
+//     setUserId(null);
+//     setAddresses([]);
+//   };
+
+//   // Fetch addresses for the logged-in user
+//   const fetchAddress = async () => {
+//     if (!userId) return;
+//     try {
+//       const response = await api.get(`/addresses/${userId}`);
+//       setAddresses(response.data.addresses || []);
+//     } catch (error) {
+//       console.log("fetchAddress error:", error.message);
+//     }
+//   };
+
+//   return (
+//     <AppContext.Provider
+//       value={{
+//         userId,
+//         setUserId,
+//         token,
+//         authLoading,
+//         signIn,
+//         signOut,
+//         addresses,
+//         setAddresses,
+//         fetchAddress,
+//       }}
+//     >
+//       {children}
+//     </AppContext.Provider>
+//   );
+// };
+
+// // ✅ Keep BOTH exports so old and new screens work
+// export const useAuth = () => {
+//   const ctx = useContext(AppContext);
+//   if (!ctx) throw new Error("useAuth must be used inside AppContextProvider");
+//   return ctx;
+// };
+
+// export { AppContext };
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { createContext, useContext, useEffect, useState } from "react";
+import api from "./services/axios";
+
+const AppContext = createContext(null);
 
 export const AppContextProvider = ({ children }) => {
   const [userId, setUserId] = useState(null);
+  const [token, setToken] = useState(null);
+  const [authLoading, setAuthLoading] = useState(true);
   const [addresses, setAddresses] = useState([]);
+
+  // Load saved auth on mount
   useEffect(() => {
-    const fetchUser = async () => {
+    (async () => {
       try {
-        const token = await AsyncStorage.getItem("token");
-        console.log("Token from storage:", token);
-
-        if (!token) {
-          console.warn("No token found in AsyncStorage");
-          return;
+        const [savedToken, savedUserId] = await Promise.all([
+          AsyncStorage.getItem("token"),
+          AsyncStorage.getItem("userId"),
+        ]);
+        if (savedToken && savedUserId) {
+          setToken(savedToken);
+          setUserId(savedUserId);
         }
-
-        const decoded = jwtDecode(token);
-        console.log("Decoded Token:", decoded);
-
-        setUserId(decoded.id);
-      } catch (err) {
-        console.error("Failed to decode token:", err.message);
+      } catch (e) {
+        console.log("Auth restore error:", e);
+      } finally {
+        setAuthLoading(false);
       }
-    };
-
-    fetchUser();
+    })();
   }, []);
 
-  console.log(userId);
+  const signIn = async (newToken, newUserId) => {
+    await AsyncStorage.setItem("token", newToken);
+    await AsyncStorage.setItem("userId", newUserId);
+    setToken(newToken);
+    setUserId(newUserId);
+  };
+
+  const signOut = async () => {
+    await AsyncStorage.removeItem("token");
+    await AsyncStorage.removeItem("userId");
+    setToken(null);
+    setUserId(null);
+    setAddresses([]);
+  };
+
+  // Fetch addresses for the logged-in user
   const fetchAddress = async () => {
+    if (!userId) return;
     try {
-      const response = await axios.get(
-        `http://172.20.10.3:8000/addresses/${userId}`
-      );
-      const { addresses } = response.data;
-      setAddresses(addresses);
+      const response = await api.get(`/addresses/${userId}`);
+      setAddresses(response.data.addresses || []);
     } catch (error) {
-      console.log("error", error);
+      console.log("fetchAddress error:", error.message);
     }
   };
-  useEffect(() => {
-    fetchAddress();
-  }, []);
+
   return (
     <AppContext.Provider
-      value={{ userId, setUserId, fetchAddress, addresses, setAddresses }}
+      value={{
+        userId,
+        setUserId,
+        token,
+        authLoading,
+        signIn,
+        signOut,
+        addresses,
+        setAddresses,
+        fetchAddress,
+      }}
     >
       {children}
     </AppContext.Provider>
   );
 };
+
+export const useAuth = () => {
+  const ctx = useContext(AppContext);
+  if (!ctx) throw new Error("useAuth must be used inside AppContextProvider");
+  return ctx;
+};
+
+export { AppContext };
