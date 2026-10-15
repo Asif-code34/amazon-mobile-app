@@ -11,6 +11,7 @@ import { useContext, useEffect, useState } from "react";
 import {
   Dimensions,
   Image,
+  Platform,
   Pressable,
   ScrollView,
   StatusBar,
@@ -241,12 +242,19 @@ const HomeScreen = () => {
       </SafeAreaView>
 
       {/* ─── Address Modal ─── */}
-      <Modal
+      {/* <Modal
         isVisible={modalVisible}
         onBackdropPress={() => setModalVisible(false)}
         onSwipeComplete={() => setModalVisible(false)}
         swipeDirection="down"
         style={{ justifyContent: "flex-end", margin: 0 }}
+      > */}
+      <Modal
+        isVisible={modalVisible}
+        onBackdropPress={() => setModalVisible(false)}
+        onSwipeComplete={() => setModalVisible(false)}
+        swipeDirection="down"
+        style={{ justifyContent: "flex-end", margin: 0, alignItems: "center" }}
       >
         <View style={styles.modalBody}>
           <Text style={styles.modalTitle}>Choose your Location</Text>
@@ -506,7 +514,13 @@ const styles = StyleSheet.create({
     height: 40,
     flex: 1,
   },
-  searchText: { flex: 1, paddingHorizontal: 8, color: "#111827" },
+  searchText: {
+    flex: 1,
+    paddingHorizontal: 8,
+    color: "#111827",
+    fontSize: Platform.OS === "web" ? 16 : 14,
+  },
+  // searchText: { flex: 1, paddingHorizontal: 8, color: "#111827" },
 
   addressBar: {
     flexDirection: "row",
@@ -580,12 +594,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
   },
 
+  // modalBody: {
+  //   backgroundColor: "white",
+  //   padding: 20,
+  //   borderTopLeftRadius: 20,
+  //   borderTopRightRadius: 20,
+  //   maxHeight: 480,
+  // },
   modalBody: {
     backgroundColor: "white",
     padding: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     maxHeight: 480,
+    width: Platform.OS === "web" ? 480 : "100%",
+    alignSelf: "center",
   },
   modalTitle: { fontSize: 16, fontWeight: "600", color: "#111827" },
   modalSubtitle: {

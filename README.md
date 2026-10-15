@@ -48,3 +48,66 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+https://expo.dev/accounts/asifcode-4334/projects/amazon/builds/e1b16b27-bc0f-4402-97fc-f338e2ab6248
+
+# E-Commerce Mobile App
+
+A full-stack mobile e-commerce application built with **React Native (Expo)**, **Redux Toolkit**, **Node.js**, **Express**, and **MongoDB Atlas**.
+
+## 🔗 Live Demo
+
+- 🌐 **Web App:** https://asifcode-4334-amazon.expo.app
+- 📱 **Android APK:** https://github.com/Asif-code34/amazon-mobile-app/releases/latest
+- 🎬 **Backend API:** https://amazon-mobile-app-smy6.onrender.com/health
+- 💻 **Source Code:** https://github.com/Asif-code34/amazon-mobile-app
+
+## 🔑 Demo Credentials
+
+Email: demo@example.com  
+Password: password123
+
+_(Register a fresh user or use these if the demo account exists)_
+
+## ✨ Features
+
+### Frontend (React Native)
+
+- JWT authentication (register / login / auto-login)
+- Persistent cart with Redux + AsyncStorage
+- Home with hero carousel, category filters, trending deals
+- Product detail with image carousel and ratings
+- Multi-step checkout (address → delivery → payment → confirm)
+- Address management (add / edit / delete)
+- Order history and confirmation
+- Profile dashboard with logout
+- Custom splash screen and cross-platform layout
+
+### Backend (Node.js + Express)
+
+- Bcrypt password hashing + JWT auth
+- Auth middleware protecting all user routes
+- Rate limiting on login / register
+- Address CRUD operations
+- Order creation and history
+- Environment validation, 404 handler, global error handler
+
+## 🛠️ Tech Stack
+
+| Layer      | Technologies                                                               |
+| ---------- | -------------------------------------------------------------------------- |
+| Frontend   | React Native, Expo, React Navigation, Redux Toolkit, Axios, AsyncStorage   |
+| Backend    | Node.js, Express, MongoDB Atlas, Mongoose, JWT, Bcrypt, express-rate-limit |
+| Deployment | Render (backend), EAS Hosting (web), EAS Build (Android)                   |
+
+## 🚀 Setup
+
+### Backend
+
+```bash
+cd api
+npm install
+cp .env.example .env
+# Fill in MONGO_URI and JWT_SECRET
+npm run dev
+```

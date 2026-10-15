@@ -34,19 +34,44 @@ const BottomTabs = () => {
 
   return (
     <Tab.Navigator
+      // screenOptions={{
+      //   headerShown: false,
+      //   tabBarActiveTintColor: ACTIVE,
+      //   tabBarInactiveTintColor: INACTIVE,
+      //   tabBarStyle: {
+      //     height: Platform.OS === "ios" ? 88 : 64,
+      //     paddingTop: 8,
+      //     paddingBottom: Platform.OS === "ios" ? 28 : 8,
+      //     borderTopWidth: 1,
+      //     borderTopColor: "#E5E7EB",
+      //     backgroundColor: "#FFFFFF",
+      //   },
+      //   tabBarLabelStyle: { fontSize: 11, fontWeight: "600" },
+      // }}
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: ACTIVE,
         tabBarInactiveTintColor: INACTIVE,
         tabBarStyle: {
-          height: Platform.OS === "ios" ? 88 : 64,
-          paddingTop: 8,
-          paddingBottom: Platform.OS === "ios" ? 28 : 8,
+          height: Platform.OS === "ios" ? 88 : Platform.OS === "web" ? 90 : 64,
+          paddingTop: Platform.OS === "web" ? 10 : 8,
+          paddingBottom:
+            Platform.OS === "ios" ? 28 : Platform.OS === "web" ? 16 : 8,
           borderTopWidth: 1,
           borderTopColor: "#E5E7EB",
           backgroundColor: "#FFFFFF",
         },
-        tabBarLabelStyle: { fontSize: 11, fontWeight: "600" },
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: "600",
+          lineHeight: Platform.OS === "web" ? 16 : 14,
+          marginTop: Platform.OS === "web" ? 4 : 0,
+          marginBottom: Platform.OS === "web" ? 4 : 0,
+          includeFontPadding: false,
+        },
+        tabBarIconStyle: {
+          marginTop: Platform.OS === "web" ? 2 : 0,
+        },
       }}
     >
       <Tab.Screen

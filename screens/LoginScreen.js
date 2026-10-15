@@ -361,7 +361,8 @@ const styles = {
     flex: 1,
     height: "100%",
     color: "#111827",
-    fontSize: 15,
+    fontSize: Platform.OS === "web" ? 16 : 15,
+    // fontSize: 15,
     paddingVertical: 0,
   },
 

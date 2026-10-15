@@ -14,7 +14,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.asifcode.amazonclone"
     },
     "web": {
       "bundler": "metro",
@@ -40,6 +41,12 @@
       "expo-web-browser",
       "expo-status-bar",
       "expo-asset"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "ccfb87c1-839c-4eff-87be-1aec5fcdb820"
+      }
+    },
+    "owner": "asifcode-4334"
   }
 }
